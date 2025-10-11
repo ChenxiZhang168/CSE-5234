@@ -1,0 +1,6 @@
+# Ignore any accidental npm install at the repo root
+/node_modules
+
+# Ignore subproject node_modules
+gobuckeye/node_modules/
+Lab5/node_modules/
