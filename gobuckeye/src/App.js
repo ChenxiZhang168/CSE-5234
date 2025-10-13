@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Purchase from './components/purchase';
 import ViewOrder from './components/viewOrder';
 import ViewConfirmation from './components/viewConfirmation';
+import PaymentEntry from "./components/paymentEntry";
+import ShippingEntry from "./components/shippingEntry";
 
 function App() {
   return (
@@ -20,6 +22,11 @@ function App() {
             
             {/* Order review page */}
             <Route path='/purchase/viewOrder' element={<ViewOrder />} />
+            {/* Payment entry page */}
+            <Route path="/purchase/paymentEntry" element={<PaymentEntry />} />
+
+            {/* Shipping entry page */}
+            <Route path="/purchase/shippingEntry" element={<ShippingEntry />} />
             
             {/* Order confirmation page */}
             <Route path='/purchase/viewConfirmation' element={<ViewConfirmation />} />
