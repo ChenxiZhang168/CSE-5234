@@ -58,7 +58,7 @@ export default function ShippingEntry() {
   const navigate = useNavigate();
   const location = useLocation();
   const cart =
-    location.state?.cart || JSON.parse(sessionStorage.getItem("cart")) || [];
+    location.state?.cartItems || JSON.parse(sessionStorage.getItem("cartItems")) || [];
   const paymentInfo =
     location.state?.paymentInfo ||
     JSON.parse(sessionStorage.getItem("paymentInfo")) ||
@@ -124,7 +124,7 @@ export default function ShippingEntry() {
 
     // Save it
     sessionStorage.setItem("shippingInfo", JSON.stringify(form));
-    if (cart?.length) sessionStorage.setItem("cart", JSON.stringify(cart));
+    if (cart?.length) sessionStorage.setItem("cartItems", JSON.stringify(cart));
     if (paymentInfo)
       sessionStorage.setItem("paymentInfo", JSON.stringify(paymentInfo));
 

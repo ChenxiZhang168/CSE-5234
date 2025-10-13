@@ -6,15 +6,10 @@ function ViewOrder () {
     const location = useLocation();
     const navigate = useNavigate();
 
-    // mock data 
-    const { cartItems, paymentInfo, shippingInfo } = location.state || {
-        cartItems: [
-            { name: 't-shirt', price: 15, quantity: 2},
-            { name: 'polo', price: 30, quantity: 1}
-        ],
-        paymentInfo: { cardHolder: 'John Doe', cardNumber: '1234 1234 1234 1234', expirationDate: '10/12', cvv: '321'},
-        shippingInfo: { name: 'John Doe', addressLine1: 'high st', addressLine2: '', city: 'Columbus', state: 'OH', zip: '1234'}
-    };
+    const state = location.state || {};
+    const cartItems = state.cartItems || JSON.parse(sessionStorage.getItem("cartItems")) || [];
+    const paymentInfo = state.paymentInfo || JSON.parse(sessionStorage.getItem("paymentInfo")) || {};
+    const shippingInfo = state.shippingInfo || JSON.parse(sessionStorage.getItem("shippingInfo")) || {};
     
     const formatCurrency = (n) => `$${Number(n).toFixed(2)}`;
     const last4 = (paymentInfo?.cardNumber || '').replace(/\s+/g, '').slice(-4);
@@ -74,7 +69,7 @@ function ViewOrder () {
                         </div>
                         <div className="card-body">
                             <div className="small text-muted">Cardholder</div>
-                            <div className="mb-2">{paymentInfo?.cardHolder || '—'}</div>
+                            <div className="mb-2">{paymentInfo?.cardHolderName || '—'}</div>
                             <div className="small text-muted">Card</div>
                             <div>{last4 ? `**** **** **** ${last4}` : '—'}</div>
                         </div>

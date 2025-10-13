@@ -9,7 +9,7 @@ function PaymentEntry() {
   // If you passed cart/items from /purchase via navigate(..., { state })
   // they will be available here as location.state?.cart
   const cart =
-    location.state?.cart || JSON.parse(sessionStorage.getItem("cart")) || [];
+    location.state?.cartItems || JSON.parse(sessionStorage.getItem("cart")) || [];
 
   const [form, setForm] = useState({
     cardHolderName: "",
@@ -113,7 +113,7 @@ function PaymentEntry() {
 
     // “Save it” (per lab). Using sessionStorage is perfect for this lab.
     sessionStorage.setItem("paymentInfo", JSON.stringify(form));
-    if (cart?.length) sessionStorage.setItem("cart", JSON.stringify(cart));
+    if (cart?.length) sessionStorage.setItem("cartItems", JSON.stringify(cart));
 
     // Move to shipping page with state preserved as well (either way is fine)
     navigate("/purchase/shippingEntry", {

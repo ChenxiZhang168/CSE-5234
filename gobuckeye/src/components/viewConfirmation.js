@@ -67,7 +67,7 @@ function ViewConfirmation() {
                 </div>
                 <div className="card-body">
                   <div className="small text-muted">Cardholder</div>
-                  <div className="mb-2">{paymentInfo?.cardHolder || '—'}</div>
+                  <div className="mb-2">{paymentInfo?.cardHolderName || '—'}</div>
                   <div className="small text-muted">Card</div>
                   <div>{(paymentInfo?.cardNumber || '').replace(/\s+/g, '').slice(-4) ? `**** **** **** ${(paymentInfo.cardNumber || '').replace(/\s+/g, '').slice(-4)}` : '—'}</div>
                 </div>
