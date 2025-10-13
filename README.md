@@ -7,3 +7,5 @@ features include the following:
 - purchase/shippingEntry
 - purchase/viewOrder
 - purchcase/viewConfirmation
+
+look at demo folder for the DEMO
