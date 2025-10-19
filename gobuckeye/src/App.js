@@ -12,8 +12,7 @@ import ShippingEntry from "./components/shippingEntry";
 import Home from './components/home';
 import College from './components/college';
 import ContactUs from './components/contactUs';
-
-
+import AboutUs from "./components/aboutUs";
 
 function App() {
   return (
@@ -38,6 +37,7 @@ function App() {
             
             {/* Order review page */}
             <Route path='/purchase/viewOrder' element={<ViewOrder />} />
+
             {/* Payment entry page */}
             <Route path="/purchase/paymentEntry" element={<PaymentEntry />} />
 
@@ -46,6 +46,9 @@ function App() {
             
             {/* Order confirmation page */}
             <Route path='/purchase/viewConfirmation' element={<ViewConfirmation />} />
+
+            {/* About page */}
+            <Route path="/about" element={<AboutUs />} />
           </Routes>
         </div>
       </Router>
