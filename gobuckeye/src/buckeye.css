@@ -1,0 +1,41 @@
+:root {
+  --buckeye-scarlet: #bb0000; /* OSU scarlet (PMS 200 approximation) */
+  --buckeye-gray: #666666; /* OSU gray */
+  --buckeye-dark: #121212;
+  --buckeye-light: #f7f7f7;
+}
+
+/* Navbar */
+.navbar-buckeye {
+  background: var(--buckeye-scarlet);
+}
+.navbar-buckeye .navbar-brand,
+.navbar-buckeye .nav-link,
+.navbar-buckeye .navbar-toggler {
+  color: #fff !important;
+}
+.navbar-buckeye .nav-link.active,
+.navbar-buckeye .nav-link:focus,
+.navbar-buckeye .nav-link:hover {
+  color: #fff;
+  opacity: 0.9;
+  text-decoration: underline;
+}
+
+/* Footer */
+.footer-buckeye {
+  background: var(--buckeye-dark);
+  color: #eee;
+}
+.footer-buckeye a {
+  color: #ddd;
+  text-decoration: none;
+}
+.footer-buckeye a:hover {
+  text-decoration: underline;
+}
+
+/* Utility */
+.container-narrow {
+  max-width: 1080px;
+}
