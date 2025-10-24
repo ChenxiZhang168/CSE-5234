@@ -61,7 +61,6 @@ export default function Footer() {
         </div>
         <hr className="border-secondary my-3" />
         <div className="d-flex justify-content-between">
-          <small>Built for CSE 5234 Lab 5</small>
           <small>All trademarks are property of their owners.</small>
         </div>
       </div>

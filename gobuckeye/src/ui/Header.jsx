@@ -46,21 +46,6 @@ export default function Header() {
                 Products
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink to="/shipping" className="nav-link">
-                Shipping
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="/payment" className="nav-link">
-                Payment
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="/order" className="nav-link">
-                Order Summary
-              </NavLink>
-            </li>
 
             <li className="nav-item">
               <NavLink to="/about" className="nav-link">
