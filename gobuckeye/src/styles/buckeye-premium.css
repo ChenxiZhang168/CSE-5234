@@ -1,0 +1,250 @@
+/* ===== Buckeye Premium Theme ===== */
+:root {
+  --scarlet: #bb0000;
+  --scarlet-dark: #990000;
+  --gray: #666666;
+  --dark: #1d1d1d;
+  --light: #f4f4f4;
+  --white: #fff;
+
+  --radius-lg: 16px;
+  --shadow-card: 0 10px 24px rgba(0, 0, 0, 0.1);
+  --shadow-card-hover: 0 16px 36px rgba(0, 0, 0, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--light);
+  color: var(--dark);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Container */
+.container {
+  width: min(1150px, 92vw);
+  margin-inline: auto;
+  padding: 0 0 1.2rem;
+}
+
+/* ===== Sticky Header with Block O ===== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.04)),
+    var(--scarlet);
+  color: var(--white);
+  border-bottom: 4px solid var(--scarlet-dark);
+  backdrop-filter: saturate(140%) blur(4px);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+.block-o {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+}
+
+/* Nav with animated underline */
+.nav {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.nav a {
+  position: relative;
+  display: inline-block;
+  padding: 0.45rem 0.7rem;
+  color: var(--white);
+  text-decoration: none;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0.6rem;
+  right: 0.6rem;
+  bottom: 0.3rem;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+  opacity: 0.9;
+}
+.nav a:hover::after {
+  transform: scaleX(1);
+}
+.nav a:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ===== Hero (The Shoe vibe) ===== */
+.hero {
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.55));
+  color: var(--white);
+  padding: clamp(48px, 8vw, 96px) 0;
+  margin-bottom: 1.25rem;
+}
+.hero .container {
+  padding-top: 0.5rem;
+}
+.hero-title {
+  font-family: "Oswald", "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(32px, 5vw, 56px);
+  margin: 0 0 0.4rem;
+  letter-spacing: 0.5px;
+}
+.hero-sub {
+  font-size: clamp(16px, 2.2vw, 20px);
+  opacity: 0.95;
+  max-width: 68ch;
+}
+
+/* CTA buttons */
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.1rem;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.06s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+.btn:active {
+  transform: scale(0.985);
+}
+.btn-scarlet {
+  background: var(--scarlet);
+  color: var(--white);
+  box-shadow: 0 6px 16px rgba(187, 0, 0, 0.35);
+}
+.btn-scarlet:hover {
+  background: var(--scarlet-dark);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Spacing helper for button rows */
+.btn-row {
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+/* ===== Cards Grid ===== */
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 760px) {
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-card);
+  padding: 1.05rem 1.1rem;
+  transition: transform 0.18s ease, box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+.card h3 {
+  margin: 0.2rem 0 0.35rem;
+  font-family: "Oswald", "Segoe UI", Roboto, Arial, sans-serif;
+  letter-spacing: 0.2px;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* Section titles with scarlet bar */
+.title {
+  position: relative;
+  margin: 1.1rem 0 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+.title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 90px;
+  height: 4px;
+  background: var(--scarlet);
+  border-radius: 4px;
+}
+
+/* ===== Footer ===== */
+.site-footer {
+  margin-top: 2rem;
+  background: #1c1c1c;
+  color: var(--white);
+  border-top: 4px solid var(--scarlet);
+}
+.footer-inner {
+  padding: 1.2rem 0;
+  font-size: 0.95rem;
+  opacity: 0.95;
+}
+
+/* ===== Smooth page feel (respect reduced motion) ===== */
+@media (prefers-reduced-motion: no-preference) {
+  main,
+  .card,
+  .btn,
+  .nav a::after {
+    will-change: transform, box-shadow;
+  }
+}
+
+/* Utility */
+.m1 {
+  margin: 0.75rem 0;
+}
+.m2 {
+  margin: 1.25rem 0;
+}
