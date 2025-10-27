@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import {useLocation, useNavigate} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+const ORDER_BASE = process.env.REACT_APP_ORDER_API_BASE || "http://localhost:8081";
 
 function ViewOrder () {
     const location = useLocation();
@@ -11,10 +13,56 @@ function ViewOrder () {
     const paymentInfo = state.paymentInfo || JSON.parse(sessionStorage.getItem("paymentInfo")) || {};
     const shippingInfo = state.shippingInfo || JSON.parse(sessionStorage.getItem("shippingInfo")) || {};
     
+    const [submitting, setSubmitting] = useState(false);
+    const [error, setError] = useState(null);
+
+    const items = (cartItems || []).map(({ id, quantity }) => ({ id, qty: quantity }));
+
     const formatCurrency = (n) => `$${Number(n).toFixed(2)}`;
     const last4 = (paymentInfo?.cardNumber || '').replace(/\s+/g, '').slice(-4);
 
     const total = cartItems.reduce((sum, i) => sum + i.price * i.quantity, 0);
+
+    async function onConfirm() {
+        setSubmitting(true);
+        setError(null);
+        try {
+            const payment = { cardLast4: last4 || "0000", amount: total };
+            const shipping = {
+                name: shippingInfo?.name || "",
+                addressLine1: shippingInfo?.addressLine1 || "",
+                addressLine2: shippingInfo?.addressLine2 || "",
+                city: shippingInfo?.city || "",
+                state: shippingInfo?.state || "",
+                zip: shippingInfo?.zip || ""
+            };
+
+            const res = await fetch(`${ORDER_BASE}/order-processing/order`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ items, payment, shipping })
+            });
+
+            const data = await res.json().catch(() => ({}));
+
+            if (res.ok) {
+                // 200 ACCEPTED → go to confirmation with the number
+                navigate('/purchase/viewConfirmation', { state: { confirmationNumber: data.confirmationNumber } });
+                return;
+            }
+            if (res.status === 409 && data?.reason === "INSUFFICIENT_INVENTORY") {
+                // Prompt user to adjust quantities back on purchase page
+                navigate('/purchase', { state: { inventoryConflict: data.missing } });
+                return;
+            }
+            setError("Could not place order. Please try again.");
+        } catch (e) {
+            setError("Network error. Please try again.");
+        } finally {
+            setSubmitting(false);
+        }
+    }
+
     return (
         <div className="container py-4">
             <h2 className="mb-4">Order Summary</h2>
@@ -89,6 +137,12 @@ function ViewOrder () {
                 </div>
             </div>
 
+            {error && (
+                <div className="alert alert-danger mt-3" role="alert">
+                    {error}
+                </div>
+            )}
+
             <div className="d-flex justify-content-between pt-3">
                 <button type="button" className="btn btn-outline-secondary" onClick={() => navigate(-1)}>
                     Back
@@ -96,11 +150,10 @@ function ViewOrder () {
                 <button
                     type="button"
                     className="btn btn-primary"
-                    onClick={() =>
-                        navigate('/purchase/viewConfirmation', { state: { cartItems, paymentInfo, shippingInfo } })
-                    }
+                    onClick={onConfirm}
+                    disabled={submitting}
                 >
-                    Confirm Order
+                    {submitting ? "Placing…" : "Confirm Order"}
                 </button>
             </div>
         </div>
