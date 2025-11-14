@@ -8,7 +8,7 @@ import polo from "../images/polo.png";
 import sweatshirt from "../images/sweatshirt.png";
 import tshirt from "../images/t-shirt.png";
 
-const INVENTORY_BASE = process.env.REACT_APP_INVENTORY_API_BASE || "http://localhost:8082";
+const INVENTORY_BASE = "https://vnmy24ok94.execute-api.us-east-2.amazonaws.com/dev/inventory-management/inventory";
 
 function pickImageForItem(item) {
   const n = (item?.name || "").toLowerCase();
@@ -38,14 +38,14 @@ function Purchase() {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch(`${INVENTORY_BASE}/inventory-management/inventory/items`);
+        const res = await fetch(`${INVENTORY_BASE}`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         if (!cancelled) {
           const normalized = (Array.isArray(data) ? data : []).map((item) => ({
             ...item,
-            price: item.unit_price ?? item.price,
-            availableQty: item.available_quantity ?? item.availableQty,
+            price: item.unitPrice ?? item.price,
+            availableQty: item.availableQuantity ?? item.availableQty,
           }));
           setItems(normalized);
         }
