@@ -38,10 +38,17 @@ function Purchase() {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch(`${INVENTORY_BASE}/inventory/items`);
+        const res = await fetch(`${INVENTORY_BASE}/inventory-management/inventory/items`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
-        if (!cancelled) setItems(Array.isArray(data) ? data : []);
+        if (!cancelled) {
+          const normalized = (Array.isArray(data) ? data : []).map((item) => ({
+            ...item,
+            price: item.unit_price ?? item.price,
+            availableQty: item.available_quantity ?? item.availableQty,
+          }));
+          setItems(normalized);
+        }
       } catch (e) {
         if (!cancelled) setErr("Unable to load items. Please try again.");
       } finally {

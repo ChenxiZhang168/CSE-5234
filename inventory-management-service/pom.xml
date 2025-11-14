@@ -49,6 +49,19 @@
 	    <version>2.0.2</version>
 	  </dependency>
 
+	  <!-- JDBC + DataSource support -->
+	  <dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+
+	  <!-- PostgreSQL driver (use this if your DB is Postgres) -->
+ 	  <dependency>
+		<groupId>org.postgresql</groupId>
+		<artifactId>postgresql</artifactId>
+		<scope>runtime</scope>
+	  </dependency>
+
 	  <!-- Tests -->
 	  <dependency>
 	    <groupId>org.springframework.boot</groupId>
