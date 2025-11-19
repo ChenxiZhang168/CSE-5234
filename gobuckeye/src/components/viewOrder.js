@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {useLocation, useNavigate} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const ORDER_BASE = process.env.REACT_APP_ORDER_API_BASE || "http://localhost:8081";
+const ORDER_ENDPOINT = "https://wk0h2hskx1.execute-api.us-east-2.amazonaws.com/dev/order-processing/order";
 
 function ViewOrder () {
     const location = useLocation();
@@ -16,7 +16,12 @@ function ViewOrder () {
     const [submitting, setSubmitting] = useState(false);
     const [error, setError] = useState(null);
 
-    const items = (cartItems || []).map(({ id, quantity }) => ({ id, qty: quantity }));
+    const items = (cartItems || []).map(({ id, name, price, quantity }) => ({
+        itemId: id,
+        itemName: name,
+        unitPriceAtPurchase: price,
+        quantity
+    }));
 
     const formatCurrency = (n) => `$${Number(n).toFixed(2)}`;
     const last4 = (paymentInfo?.cardNumber || '').replace(/\s+/g, '').slice(-4);
@@ -27,20 +32,39 @@ function ViewOrder () {
         setSubmitting(true);
         setError(null);
         try {
-            const payment = { cardLast4: last4 || "0000", amount: total };
-            const shipping = {
-                name: shippingInfo?.name || "",
-                addressLine1: shippingInfo?.addressLine1 || "",
-                addressLine2: shippingInfo?.addressLine2 || "",
-                city: shippingInfo?.city || "",
-                state: shippingInfo?.state || "",
-                zip: shippingInfo?.zip || ""
+            // Derive customer info (fallbacks if not explicitly collected)
+            const customerName = shippingInfo?.name || paymentInfo?.cardHolderName || "";
+            const customerEmail = shippingInfo?.email || "";
+
+            // Build paymentInfo object expected by backend
+            const paymentPayload = {
+                holderName: paymentInfo?.cardHolderName || "",
+                cardNum: (paymentInfo?.cardNumber || "").replace(/\s+/g, ""),
+                expDate: paymentInfo?.expiry || "",
+                cvv: paymentInfo?.cvv || ""
             };
 
-            const res = await fetch(`${ORDER_BASE}/order-processing/order`, {
+            // Build shippingInfo object expected by backend
+            const shippingPayload = {
+                address1: shippingInfo?.addressLine1 || "",
+                address2: shippingInfo?.addressLine2 || "",
+                city: shippingInfo?.city || "",
+                state: shippingInfo?.state || "",
+                country: "USA",
+                postalCode: shippingInfo?.zip || "",
+                email: customerEmail
+            };
+
+            const res = await fetch(ORDER_ENDPOINT, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ items, payment, shipping })
+                body: JSON.stringify({
+                    customerName,
+                    customerEmail,
+                    shippingInfo: shippingPayload,
+                    items,
+                    paymentInfo: paymentPayload
+                })
             });
 
             const data = await res.json().catch(() => ({}));
