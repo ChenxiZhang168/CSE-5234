@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
+import Footer from "../ui/Footer";
 
 /** Inline Block "O" so you don't need image files */
 function BlockO() {
@@ -84,12 +85,7 @@ export default function Layout() {
       </main>
 
       {/* Footer */}
-      <footer className="site-footer" role="contentinfo">
-        <div className="container footer-inner">
-          © {new Date().getFullYear()} The Ohio State University — Scarlet &amp;
-          Gray
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }
