@@ -161,6 +161,7 @@ body {
 /* Spacing helper for button rows */
 .btn-row {
   display: flex;
+  justify-content: center;
   gap: 0.7rem;
   flex-wrap: wrap;
   margin-top: 1rem;
