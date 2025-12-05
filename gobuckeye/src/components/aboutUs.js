@@ -1,6 +1,11 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import polo from "../images/polo.png";
+import member1 from "../images/member1.jpg";
+import member2 from "../images/member2.jpg";
+import member3 from "../images/member3.jpg";
+
+
 
 export default function AboutUs() {
   const executives = [
@@ -9,21 +14,24 @@ export default function AboutUs() {
       title: 'Co‑Founder & CEO',
       education: 'M.S. Computer Science, The Ohio State University',
       experience: 'Built and led cross‑functional teams; launched campus rental logistics and partner onboarding; managed early P&L and investor outreach.',
-      passion: 'Scaling a student‑first, circular‑economy brand—balancing growth, service quality, and real savings for fans.'
+      passion: 'Scaling a student‑first, circular‑economy brand—balancing growth, service quality, and real savings for fans.',
+      photo: member1,
     },
     {
       name: 'Chenxi Zhang',
       title: 'Co‑Founder & CTO',
       education: 'B.S. Industrial & Systems Engineering, The Ohio State University',
       experience: 'Architected the booking/inventory platform (React/Node); implemented locker/return flows, pricing engine, and data pipelines.',
-      passion: 'Designing reliable, scalable systems that keep jerseys available, affordable, and traceable from pickup to cleaning.'
+      passion: 'Designing reliable, scalable systems that keep jerseys available, affordable, and traceable from pickup to cleaning.',
+      photo: member2,
     },
     {
       name: 'Zeyu Huang',
       title: 'Co‑Founder & CFO',
       education: 'B.A. Marketing, Fisher College of Business (OSU)',
       experience: 'Owns unit economics, deposits, and tier pricing; built forecasting and cohort dashboards; set loss/late/cleaning policies.',
-      passion: 'Disciplined, data‑driven growth—fair pricing for students while sustaining healthy margins and reinvestment.'
+      passion: 'Disciplined, data‑driven growth—fair pricing for students while sustaining healthy margins and reinvestment.',
+      photo: member3,
     }
   ];
 
@@ -97,13 +105,22 @@ export default function AboutUs() {
       {/* Meet our Executives */}
       <div className="mb-4">
         <h3 className="mb-3">Meet Our Executives</h3>
-        <p className="text-muted">Brag, brag, brag — the team turning fan spirit into a sustainable business.</p>
       </div>
       <div className="row g-4 justify-content-center">
         {executives.map((e, idx) => (
           <div className="col-md-6 col-lg-4" key={idx}>
             <div className="card h-100 shadow-sm">
-              <img src={polo} alt={`${e.name}`} className="card-img-top" style={{ objectFit: "cover", height: "220px" }} />
+              <img
+                src={e.photo}
+                alt={`${e.name}`}
+                className="card-img-top"
+                style={{
+                  objectFit: "contain",
+                  height: "260px",
+                  padding: "10px",
+                  backgroundColor: "#f8f9fa"
+                }}
+              />
               <div className="card-body text-center">
                 <h5 className="card-title mb-1">{e.name}</h5>
                 <div className="text-muted mb-2">{e.title}</div>

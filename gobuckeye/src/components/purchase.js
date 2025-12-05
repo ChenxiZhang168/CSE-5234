@@ -2,28 +2,31 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import jacket from "../images/jacket.png";
-import jersey from "../images/jersey.png";
-import polo from "../images/polo.png";
-import sweatshirt from "../images/sweatshirt.png";
-import tshirt from "../images/t-shirt.png";
+import jersey1 from "../images/jersey1.jpg";
+import jersey2 from "../images/jersey2.png";
+import jersey3 from "../images/jersey3.jpg";
+import jersey4 from "../images/jersey4.jpg";
+import jersey5 from "../images/jersey5.jpg";
 
 const INVENTORY_BASE = "https://vnmy24ok94.execute-api.us-east-2.amazonaws.com/dev/inventory-management/inventory";
 
 function pickImageForItem(item) {
-  const n = (item?.name || "").toLowerCase();
-  if (n.includes("jacket")) return jacket;
-  if (n.includes("jersey")) return jersey;
-  if (n.includes("polo")) return polo;
-  if (n.includes("sweatshirt") || n.includes("hoodie")) return sweatshirt;
-  if (n.includes("t-shirt") || n.includes("tee") || n.includes("shirt")) return tshirt;
-  // fallback by id to keep UI stable
-  switch (item?.id) {
-    case 1: return jacket;
-    case 2: return jersey;
-    case 3: return sweatshirt;
-    case 4: return polo;
-    default: return tshirt;
+  // Prefer explicit mapping by database id so UI is stable
+  const id = item?.id ?? item?.item_number;
+
+  switch (id) {
+    case 1:
+      return jersey1; // Buckeyes #1 Red Jersey
+    case 2:
+      return jersey2; // Buckeyes Smith #4 Jersey
+    case 3:
+      return jersey3; // Buckeyes #5 White Jersey
+    case 4:
+      return jersey4; // Buckeyes #1 Black Jersey
+    case 5:
+      return jersey5; // 2025 Championship Jersey
+    default:
+      return jersey1; // fallback image
   }
 }
 

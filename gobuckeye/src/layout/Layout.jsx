@@ -66,7 +66,7 @@ export default function Layout() {
       {showHero && (
         <section className="hero" role="banner" aria-label="Buckeye hero">
           <div className="container">
-            <h1 className="hero-title">Welcome to the Buckeye Experience</h1>
+            <h1 className="hero-title">Welcome to the GameDayShare</h1>
             <div className="btn-row">
               <button className="btn btn-scarlet">Get Started</button>
               <button className="btn btn-ghost">Learn More</button>
