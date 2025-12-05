@@ -4,3 +4,4 @@
 # Ignore subproject node_modules
 gobuckeye/node_modules/
 Lab5/node_modules/
+.DS_Store
